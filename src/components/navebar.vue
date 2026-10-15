@@ -64,6 +64,11 @@ const linkAtivo = ref('#inicio')
   align-items: center;
 }
 
+.logo img {
+  width: 80px;
+  height: auto;
+}
+
 .menu {
   display: flex;
   align-items: center;
@@ -120,8 +125,8 @@ const linkAtivo = ref('#inicio')
   overflow: hidden;    /* novo: esconde o feixe fora do botão */
   display: flex;
   width: 210.048px;
-  height: 10.431px;
-  padding: 29.858px 35.83px 29.005px 35.83px;
+  height: 58.431px;
+  padding: 20px 35.83px 20px 35.83px;
   justify-content: center;
   align-items: center;
   gap: 8.531px;
