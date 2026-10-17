@@ -351,7 +351,7 @@ const redes = [
 }
 
 .redes-label {
-    color: rgba(255, 255, 255, 0.85);
+    color: rgb(255, 255, 255);
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.125rem;
     font-weight: 400;

@@ -34,7 +34,7 @@ defineProps({
 }
 
 .campo-label {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(207, 207, 207, 0.922);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.125rem;
   font-weight: 400;
@@ -53,7 +53,7 @@ defineProps({
   border-radius: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(0, 0, 0, 0.4);
-  color: rgba(255, 255, 255, 0.67);
+  color: rgba(253, 253, 253, 0.891);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.125rem;
   font-weight: 400;
