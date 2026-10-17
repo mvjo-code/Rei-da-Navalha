@@ -137,7 +137,7 @@ const redes = [
     gap: 3.5rem;
     background:
         linear-gradient(0deg, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.38) 100%),
-        /* url('../assets/imagens/fundo-sobre.jpg') center / cover no-repeat, */
+        url('src/assets/imagens/texturaservicos.png') center / cover no-repeat,
         #1c1c1c;
 }
 

@@ -51,7 +51,7 @@ const ofertas = [
   padding: 6.875rem var(--margem-lateral) 2.5rem;
   box-sizing: border-box;
   background-color: #1c1c1c;
-  background: url('../assets/imagens/sessaohorarios.jpg') center / cover no-repeat #1c1c1c;
+  background: url('../assets/imagens/horariosimage.jpg') center / cover no-repeat #1c1c1c;
 }
 
 
@@ -59,8 +59,14 @@ const ofertas = [
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.787);
-
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 65% at 50% 55%,
+    rgba(212, 91, 14, 0.55) 0%,
+    rgba(95, 37, 0, 0.55) 35%,
+    rgba(0, 0, 0, 0.85) 75%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
 }
 
 .ofertas-conteudo {
