@@ -50,7 +50,7 @@ function classe(i) {
 
     <div class="servicos-conteudo">
       <header class="servicos-cabecalho">
-        <h2 class="servicos-titulo">Serviços</h2>
+        <h2 class="servicos-titulo">PRINCIPAIS    SERVIÇOS</h2>
         <span class="servicos-traco"></span>
       </header>
 
@@ -134,7 +134,7 @@ function classe(i) {
   text-align: center;
   -webkit-text-stroke: 1px rgba(212, 91, 14, 0.78);
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 4.5rem;
+  font-size: 7rem;
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
