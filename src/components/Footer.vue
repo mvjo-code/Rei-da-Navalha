@@ -165,7 +165,7 @@ const ano = new Date().getFullYear()
 <style scoped>
 .footer {
   width: 100%;
-  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(212, 90, 14, 0.171) 100%);
+  background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgba(114, 60, 26, 0.244) 100%);
 }
 
 .footer-principal {
