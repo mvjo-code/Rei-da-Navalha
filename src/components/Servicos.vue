@@ -55,46 +55,34 @@ function classe(i) {
       </header>
 
       <div class="palco">
-        <ServicoCard
-          v-for="(servico, i) in servicos"
-          :key="servico.titulo"
-          v-bind="servico"
-          :class="['item', classe(i)]"
-          :style="{ '--offset': posicao(i) }"
-          @click="classe(i) === 'lateral' && (ativo = i)"
-        />
+        <ServicoCard v-for="(servico, i) in servicos" :key="servico.titulo" v-bind="servico"
+          :class="['item', classe(i)]" :style="{ '--offset': posicao(i) }"
+          @click="classe(i) === 'lateral' && (ativo = i)" />
       </div>
 
       <div class="controles">
         <button class="seta" type="button" aria-label="Serviço anterior" @click="anterior">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
 
         <div class="pontos">
-          <button
-            v-for="(servico, i) in servicos"
-            :key="servico.titulo"
-            type="button"
-            :class="['ponto', { ativo: i === ativo }]"
-            :aria-label="`Ver ${servico.titulo}`"
-            @click="ativo = i"
-          ></button>
+          <button v-for="(servico, i) in servicos" :key="servico.titulo" type="button"
+            :class="['ponto', { ativo: i === ativo }]" :aria-label="`Ver ${servico.titulo}`"
+            @click="ativo = i"></button>
         </div>
 
         <button class="seta" type="button" aria-label="Próximo serviço" @click="proximo">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
       </div>
 
-      <BotaoAgendar
-        :texto="`Agendar ${servicoAtivo.titulo}`"
-        href="#contato"
-        class="botao-servico"
-      />
+      <BotaoAgendar :texto="`Agendar ${servicoAtivo.titulo}`" href="#contato" class="botao-servico" />
     </div>
   </section>
 </template>
@@ -109,7 +97,8 @@ function classe(i) {
   min-height: 100dvh;
   padding: 6.875rem var(--margem-lateral) 2.5rem;
   box-sizing: border-box;
-  overflow-x: clip;            /* os cards laterais saem pela borda da tela sem criar rolagem */
+  overflow-x: clip;
+  /* os cards laterais saem pela borda da tela sem criar rolagem */
   background: url('src/assets/imagens/texturaservicos.png') center / cover no-repeat #1c1c1c;
 }
 
@@ -160,17 +149,20 @@ function classe(i) {
 /* ---------- carrossel ---------- */
 .palco {
   position: relative;
-  width: calc(100% + 2 * var(--margem-lateral));   /* ocupa a tela toda, passando das margens */
+  width: calc(100% + 2 * var(--margem-lateral));
   margin-inline: calc(-1 * var(--margem-lateral));
   height: 22rem;
+  --distancia: 32rem;        /* distância entre o centro e os cards laterais */
+  --escala-lateral: 0.6;     /* tamanho dos cards laterais */
 }
 
 .item {
+  --escala: 1;
   position: absolute;
   top: 50%;
   left: 50%;
   will-change: transform, opacity;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(1);
+  transform: translate(-50%, -50%) translateX(calc(var(--offset) * var(--distancia))) scale(var(--escala));
   transition:
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.6s ease;
@@ -180,11 +172,15 @@ function classe(i) {
   z-index: 3;
 }
 
+.item.ativo:hover {
+  --escala: 1.03;
+}
+
 .item.lateral {
   z-index: 2;
   opacity: 0.5;
   cursor: pointer;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(0.85);
+  --escala: var(--escala-lateral);
 }
 
 .item.lateral:hover {
@@ -195,7 +191,7 @@ function classe(i) {
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(0.7);
+  --escala: 0.5;
 }
 
 /* ---------- setas e indicadores ---------- */
@@ -262,7 +258,8 @@ function classe(i) {
 }
 
 .ponto.ativo {
-  width: 1.75rem;              /* o ponto ativo fica alongado e laranja */
+  width: 1.75rem;
+  /* o ponto ativo fica alongado e laranja */
   background: #d55b0e;
 }
 
@@ -296,6 +293,7 @@ function classe(i) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .item,
   .seta,
   .ponto {
