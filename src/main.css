@@ -10,6 +10,7 @@
 
 html {
   font-size: clamp(10px, min(1.1111vw, 1.8vh), 22px);
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 1024px) {

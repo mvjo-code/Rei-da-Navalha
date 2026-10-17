@@ -23,18 +23,15 @@ const ofertas = [
 
 <template>
   <section id="ofertas" class="ofertas">
-    <!-- coloque aqui a imagem/vídeo de fundo -->
+
+    <div class="overlay"></div>
 
     <div class="ofertas-conteudo">
       <div class="ofertas-linha">
         <QuadroHorarios :horarios="horarios" />
 
         <div class="ofertas-lateral">
-          <OfertaCard
-            v-for="oferta in ofertas"
-            :key="oferta.descricao"
-            v-bind="oferta"
-          />
+          <OfertaCard v-for="oferta in ofertas" :key="oferta.descricao" v-bind="oferta" />
         </div>
       </div>
 
@@ -45,6 +42,7 @@ const ofertas = [
 
 <style scoped>
 .ofertas {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,21 +51,34 @@ const ofertas = [
   padding: 6.875rem var(--margem-lateral) 2.5rem;
   box-sizing: border-box;
   background-color: #1c1c1c;
-  /* background: url('../assets/imagens/fundo-ofertas.jpg') center / cover no-repeat; */
+  background: url('../assets/imagens/sessaohorarios.jpg') center / cover no-repeat #1c1c1c;
+}
+
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.787);
+
 }
 
 .ofertas-conteudo {
   display: flex;
   width: 100%;
   flex-direction: column;
-  align-items: flex-start;   /* botão alinhado à esquerda */
+  align-items: flex-start;
+  /* botão alinhado à esquerda */
   gap: 4rem;
+  z-index: 2;
 }
 
 .ofertas-linha {
   display: flex;
-  width: 100%;               /* agora ocupa a largura toda entre as margens */
-  align-items: stretch;      /* quadro e cards com a mesma altura */
+  width: 100%;
+  /* agora ocupa a largura toda entre as margens */
+  align-items: stretch;
+  /* quadro e cards com a mesma altura */
   gap: 2rem;
 }
 
@@ -76,13 +87,14 @@ const ofertas = [
   display: flex;
   flex: 1;
   min-width: 0;
-  justify-content: center;   /* 1 card fica no centro; 2 cards ficam lado a lado, centralizados */
+  justify-content: center;
+  /* 1 card fica no centro; 2 cards ficam lado a lado, centralizados */
   align-items: stretch;
   gap: 2rem;
 }
 
 /* cada card: ideal de 22rem, mas pode encolher se houver dois */
-.ofertas-lateral > * {
+.ofertas-lateral>* {
   flex: 0 1 22rem;
   min-width: 0;
 }
@@ -110,8 +122,9 @@ const ofertas = [
     align-items: center;
   }
 
-  .ofertas-lateral > * {
-    flex: 0 0 auto;          /* na coluna, o tamanho vem da largura e não do flex-basis */
+  .ofertas-lateral>* {
+    flex: 0 0 auto;
+    /* na coluna, o tamanho vem da largura e não do flex-basis */
     width: 100%;
   }
 }

@@ -6,11 +6,11 @@ import BotaoAgendar from './BotaoAgendar.vue'
 // import imgBarba from '../assets/imagens/barba.jpg'  // exemplo de como importar as fotos
 
 const servicos = [
-  { titulo: 'Corte', descricao: 'Estilo e precisão para o seu visual.', imagem: '' },
-  { titulo: 'Barba', descricao: 'Cuidado e definição para a sua barba.', imagem: '' },
-  { titulo: 'Sobrancelha', descricao: 'Acabamento limpo e alinhado.', imagem: '' },
-  { titulo: 'Pigmentação', descricao: 'Cobertura natural e uniforme.', imagem: '' },
-  { titulo: 'Combo', descricao: 'Corte e barba com preço especial.', imagem: '' },
+  { titulo: 'Corte', descricao: 'Estilo e precisão para o seu visual.', imagem: 'src/assets/imagens/exemploservico.png' },
+  { titulo: 'Barba', descricao: 'Cuidado e definição para a sua barba.', imagem: 'src/assets/imagens/barbacard.jpg' },
+  { titulo: 'Sobrancelha', descricao: 'Acabamento limpo e alinhado.', imagem: 'src/assets/imagens/sobrancelha.jpg' },
+  { titulo: 'Pigmentação', descricao: 'Cobertura natural e uniforme.', imagem: 'src/assets/imagens/pigmentacao.jpg' },
+  { titulo: 'Combo', descricao: 'Corte e barba com preço especial.', imagem: 'src/assets/imagens/combo.jpg' },
 ]
 
 const ativo = ref(1)

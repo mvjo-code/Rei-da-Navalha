@@ -39,19 +39,97 @@ defineProps({
 
 <style scoped>
 .oferta {
+  position: relative;
+  isolation: isolate; /* "andar" próprio para a camada de luz interna */
   display: flex;
-  width: 22rem;                 /* estimado pela imagem */
-  max-width: 100%;
+  width: 100%;
+  max-width: 22rem;
   padding: 1.25rem 1.0625rem;
   flex-direction: column;
   align-items: center;
   gap: 1.0625rem;
-  flex-shrink: 0;
   box-sizing: border-box;
   border-radius: 0.625rem;
   border: 1px solid #fff;
   background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.5); /* sombra de repouso, discreta */
+  will-change: transform;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s ease,
+    border-color 0.5s ease,
+    background-color 0.5s ease;
 }
+
+/* camada de luz laranja que aparece no topo do card */
+.oferta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 70% at 50% 0%,
+    rgba(213, 91, 14, 0.28) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* área invisível embaixo do card para evitar o flicker do hover */
+.oferta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+}
+
+.oferta:hover,
+.oferta:focus-within {
+  transform: translateY(-6px);
+  border-color: #d55b0e;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 24px 40px -12px rgba(0, 0, 0, 0.6),
+    0 12px 40px -8px rgba(213, 91, 14, 0.35),
+    0 0 0 1px rgba(213, 91, 14, 0.25);
+}
+
+.oferta:hover::before,
+.oferta:focus-within::before {
+  opacity: 1;
+}
+
+/* ---------- elementos internos reagem ao hover do card ---------- */
+
+.oferta-linha,
+.oferta-divisor {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.oferta-divisor {
+  transform-origin: center;
+}
+
+.oferta:hover .oferta-divisor {
+  transform: scaleX(1.06);
+}
+
+.oferta:hover .oferta-prefixo,
+.oferta:hover .oferta-preco {
+  color: #fff;
+  text-shadow: 0 0 24px rgba(213, 91, 14, 0.45);
+}
+
+.oferta:hover .oferta-botao {
+  background: #b5520f; /* o botão "acende" junto com o card */
+}
+
+/* ---------- estrutura ---------- */
 
 .oferta-topo {
   display: flex;
@@ -103,8 +181,11 @@ defineProps({
 .oferta-prefixo,
 .oferta-preco {
   color: #dbdbdb;
-  font-size: 4.5rem;            /* estimado pela imagem */
+  font-size: 4.5rem;
   line-height: 0.95;
+  transition:
+    text-shadow 0.5s ease,
+    color 0.5s ease;
 }
 
 .oferta-descricao {
@@ -118,11 +199,13 @@ defineProps({
   background: #c7692f;
 }
 
+/* ---------- botão ---------- */
+
 .oferta-botao {
   position: relative;
   overflow: hidden;
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 3.1rem;
   justify-content: center;
   align-items: center;
@@ -138,14 +221,18 @@ defineProps({
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.22, 0.01, 0.36, 1);
 }
 
 .oferta-botao:hover {
-  background: #b5520f;
+  transform: scale(1.05);
 }
 
-/* feixe de luz */
+.oferta-botao:active {
+  transform: scale(1.02);
+}
+
+/* feixe de luz (começa fora do botão, à esquerda) */
 .oferta-botao::before {
   content: '';
   position: absolute;
@@ -153,13 +240,18 @@ defineProps({
   left: -75%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
   transform: skewX(-20deg);
   pointer-events: none;
 }
 
 .oferta-botao:hover::before {
-  animation: feixe 0.6s ease-in-out;
+  animation: feixe 0.4s ease-in-out;
 }
 
 @keyframes feixe {
@@ -168,7 +260,7 @@ defineProps({
 }
 
 .oferta-rodape {
-  margin: auto 0 0;             /* empurra o rodapé para o fim do card */
+  margin: auto 0 0;
   color: rgba(255, 255, 255, 0.85);
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.375rem;
@@ -179,12 +271,27 @@ defineProps({
 
 @media (max-width: 1024px) {
   .oferta {
-    width: 100%;
     max-width: 26rem;
   }
 }
 
+/* respeita quem desativa animações no sistema */
 @media (prefers-reduced-motion: reduce) {
+  .oferta,
+  .oferta::before,
+  .oferta-linha,
+  .oferta-divisor,
+  .oferta-prefixo,
+  .oferta-preco,
+  .oferta-botao {
+    transition: none;
+  }
+  .oferta:hover,
+  .oferta:focus-within,
+  .oferta-botao:hover,
+  .oferta-botao:active {
+    transform: none;
+  }
   .oferta-botao:hover::before {
     animation: none;
   }
