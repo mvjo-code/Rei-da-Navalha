@@ -1,9 +1,16 @@
+<script setup>
+defineProps({
+  texto: { type: String, default: 'Agendar' },
+  href: { type: String, default: '#contato' },
+})
+</script>
+
 <template>
-  <a href="#contato" class="btn-agendar">
+  <a :href="href" class="btn-agendar">
     <span class="btn-agendar-icone">
       <img src="../assets/icones/Ícone de agendamento.svg" alt="" />
     </span>
-    <span class="btn-agendar-texto">Agendar</span>
+    <span class="btn-agendar-texto">{{ texto }}</span>
   </a>
 </template>
 
