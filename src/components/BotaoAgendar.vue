@@ -19,7 +19,7 @@ defineProps({
   position: relative;
   overflow: hidden;
   display: flex;
-  width: 16.3125rem;
+  width: var(--btn-agendar-largura, 16.3125rem);
   height: 4.25rem;
   flex-shrink: 0;
   box-sizing: border-box;
@@ -27,7 +27,7 @@ defineProps({
   border: 1.5px solid #c2c2c1;
   background: #c7550d;
   text-decoration: none;
-  letter-spacing: 0.495rem;
+  letter-spacing: var(--btn-agendar-espaco, 0.495rem);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -62,6 +62,7 @@ defineProps({
   font-weight: 400;
   line-height: 100%;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* feixe de luz */
