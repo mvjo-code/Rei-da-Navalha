@@ -20,15 +20,6 @@ const beneficios = [
 
 <template>
   <section id="inicio" class="hero">
-    <video
-      class="hero-video"
-      autoplay
-      muted
-      loop
-      playsinline
-    >
-      <source src="../assets/imagens/.mp4" type="video/mp4" />
-    </video>
 
     <div class="hero-overlay"></div>
 
