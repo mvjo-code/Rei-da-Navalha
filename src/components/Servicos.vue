@@ -1,19 +1,22 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import ServicoCard from './ServicoCard.vue'
 import BotaoAgendar from './BotaoAgendar.vue'
 
 // import imgBarba from '../assets/imagens/barba.jpg'  // exemplo de como importar as fotos
 
+// preco e duracao são valores de exemplo: troque pelos reais
 const servicos = [
-  { titulo: 'Corte', descricao: 'Estilo e precisão para o seu visual.', imagem: 'src/assets/imagens/exemploservico.png' },
-  { titulo: 'Barba', descricao: 'Cuidado e definição para a sua barba.', imagem: 'src/assets/imagens/barbacard.jpg' },
-  { titulo: 'Sobrancelha', descricao: 'Acabamento limpo e alinhado.', imagem: 'src/assets/imagens/sobrancelha.jpg' },
-  { titulo: 'Pigmentação', descricao: 'Cobertura natural e uniforme.', imagem: 'src/assets/imagens/pigmentacao.jpg' },
-  { titulo: 'Combo', descricao: 'Corte e barba com preço especial.', imagem: 'src/assets/imagens/combo.jpg' },
+  { titulo: 'Corte', descricao: 'Estilo e precisão para o seu visual.', imagem: 'src/assets/imagens/exemploservico.png', preco: 'R$ 30', duracao: '40 min' },
+  { titulo: 'Barba', descricao: 'Cuidado e definição para a sua barba.', imagem: 'src/assets/imagens/barbacard.jpg', preco: 'R$ 25', duracao: '30 min' },
+  { titulo: 'Sobrancelha', descricao: 'Acabamento limpo e alinhado.', imagem: 'src/assets/imagens/sobrancelha.jpg', preco: 'R$ 10', duracao: '15 min' },
+  { titulo: 'Pigmentação', descricao: 'Cobertura natural e uniforme.', imagem: 'src/assets/imagens/pigmentacao.jpg', preco: 'R$ 35', duracao: '30 min' },
+  { titulo: 'Combo', descricao: 'Corte e barba com preço especial.', imagem: 'src/assets/imagens/combo.jpg', preco: 'R$ 50', duracao: '1h 10min' },
 ]
 
 const ativo = ref(1)
+
+const servicoAtivo = computed(() => servicos[ativo.value])
 
 function proximo() {
   ativo.value = (ativo.value + 1) % servicos.length
@@ -42,52 +45,56 @@ function classe(i) {
 
 <template>
   <section id="servicos" class="servicos">
-    <!-- coloque aqui a imagem/vídeo de fundo -->
+    <!-- coloque aqui a imagem de fundo (veja o comentário no CSS) -->
+    <div class="servicos-overlay"></div>
 
-    <div class="overlay"></div>
+    <div class="servicos-conteudo">
+      <header class="servicos-cabecalho">
+        <h2 class="servicos-titulo">Serviços</h2>
+        <span class="servicos-traco"></span>
+      </header>
 
-    <div class="servicos-caixa">
-      <h2 class="servicos-titulo">Serviços</h2>
+      <div class="palco">
+        <ServicoCard
+          v-for="(servico, i) in servicos"
+          :key="servico.titulo"
+          v-bind="servico"
+          :class="['item', classe(i)]"
+          :style="{ '--offset': posicao(i) }"
+          @click="classe(i) === 'lateral' && (ativo = i)"
+        />
+      </div>
 
-      <div class="carrossel">
-        <button class="seta seta-esquerda" type="button" aria-label="Serviço anterior" @click="anterior">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 70" fill="none">
-            <path
-              d="M1 35L28.2222 1V19.8511L71 19.8889V50.1111H28.2222V69L1 35Z"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+      <div class="controles">
+        <button class="seta" type="button" aria-label="Serviço anterior" @click="anterior">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
 
-        <div class="palco">
-          <ServicoCard
+        <div class="pontos">
+          <button
             v-for="(servico, i) in servicos"
             :key="servico.titulo"
-            v-bind="servico"
-            :class="['item', classe(i)]"
-            :style="{ '--offset': posicao(i) }"
-            @click="classe(i) === 'lateral' && (ativo = i)"
-          />
+            type="button"
+            :class="['ponto', { ativo: i === ativo }]"
+            :aria-label="`Ver ${servico.titulo}`"
+            @click="ativo = i"
+          ></button>
         </div>
 
-       <button class="seta seta-direita" type="button" aria-label="Próximo serviço" @click="proximo">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 70" fill="none">
-    <path
-      d="M71 35L43.7778 1V19.8511L1 19.8889V50.1111H43.7778V69L71 35Z"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-  </svg>
-</button>
-
+        <button class="seta" type="button" aria-label="Próximo serviço" @click="proximo">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
       </div>
 
-      <BotaoAgendar />
+      <BotaoAgendar
+        :texto="`Agendar ${servicoAtivo.titulo}`"
+        href="#contato"
+        class="botao-servico"
+      />
     </div>
   </section>
 </template>
@@ -102,31 +109,34 @@ function classe(i) {
   min-height: 100dvh;
   padding: 6.875rem var(--margem-lateral) 2.5rem;
   box-sizing: border-box;
-  background-color: #1c1c1c;
-   background: url('../assets/imagens/cortando.jpg') center / cover no-repeat; 
+  overflow-x: clip;            /* os cards laterais saem pela borda da tela sem criar rolagem */
+  background: url('src/assets/imagens/texturaservicos.png') center / cover no-repeat #1c1c1c;
 }
-.overlay {
+
+/* fundo em largura total, sem painel: escuro nas bordas e embaixo, mais leve no centro */
+.servicos-overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.802);
-
+  z-index: 0;
+  pointer-events: none;
 }
 
-
-.servicos-caixa {
+.servicos-conteudo {
+  position: relative;
+  z-index: 1;
   display: flex;
-  width: min(100%, 71rem);   /* estimado pela imagem */
-  height: 46.1875rem;        /* 739px */
-  padding: 3rem 0 3.5rem;
-  box-sizing: border-box;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background:
-    linear-gradient(90deg, rgba(212, 91, 14, 0.05) 0%, rgba(95, 37, 0, 0.23) 100%),
-    rgba(0, 0, 0, 0.32);
-    z-index: 1;
+  gap: 2rem;
+}
+
+/* ---------- título ---------- */
+.servicos-cabecalho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .servicos-titulo {
@@ -135,35 +145,32 @@ function classe(i) {
   text-align: center;
   -webkit-text-stroke: 1px rgba(212, 91, 14, 0.78);
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 6rem;
+  font-size: 4.5rem;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-/* ---------- carrossel ---------- */
-.carrossel {
-  position: relative;
-  display: flex;
-  width: 100%;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 3.9rem;         /* 63px de cada lado */
-  box-sizing: border-box;
+.servicos-traco {
+  width: 4rem;
+  height: 3px;
+  background: #d55b0e;
 }
 
+/* ---------- carrossel ---------- */
 .palco {
   position: relative;
-  flex: 1;
-  height: 13rem;
+  width: calc(100% + 2 * var(--margem-lateral));   /* ocupa a tela toda, passando das margens */
+  margin-inline: calc(-1 * var(--margem-lateral));
+  height: 22rem;
 }
 
 .item {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 17rem)) scale(1);
+  will-change: transform, opacity;
+  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(1);
   transition:
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.6s ease;
@@ -173,95 +180,115 @@ function classe(i) {
   z-index: 3;
 }
 
-.item.ativo:hover {
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 17rem)) scale(1.05);
-}
-
-.item.ativo:active {
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 17rem)) scale(0.97);
-}
-
 .item.lateral {
   z-index: 2;
-  opacity: 0.85;
+  opacity: 0.5;
   cursor: pointer;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 17rem)) scale(0.55);
+  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(0.85);
 }
 
 .item.lateral:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .item.oculto {
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 17rem)) scale(0.4);
+  transform: translate(-50%, -50%) translateX(calc(var(--offset) * 37rem)) scale(0.7);
 }
 
-/* ---------- setas ---------- */
+/* ---------- setas e indicadores ---------- */
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .seta {
-  width: 4.375rem;
-  height: 4.25rem;
+  display: flex;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
-  flex-shrink: 0;
-  border: none;
-  background: none;
-  color: rgba(255, 133, 56, 0.88);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 133, 56, 0.7);
+  background: transparent;
+  color: #ff8538;
   cursor: pointer;
   transition:
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.35s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .seta svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .seta:hover {
-  filter: drop-shadow(0 0 8px rgba(255, 133, 56, 0.6));
+  background: #d45b0e;
+  color: #fff;
+  transform: scale(1.08);
 }
 
-.seta-esquerda:hover {
-  transform: translateX(-6px);
+.seta:active {
+  transform: scale(0.92);
 }
 
-.seta-direita:hover {
-  transform: translateX(6px);
+.pontos {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
 }
 
-/* clique: encolhe um pouco, mantendo o deslocamento do hover */
-.seta-esquerda:active {
-  transform: translateX(-3px) scale(0.92);
+.ponto {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition:
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease;
 }
 
-.seta-direita:active {
-  transform: translateX(3px) scale(0.92);
+.ponto:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
+
+.ponto.ativo {
+  width: 1.75rem;              /* o ponto ativo fica alongado e laranja */
+  background: #d55b0e;
+}
+
+/* ---------- botão (largura e espaçamento próprios para caber "Agendar sobrancelha") ---------- */
+.botao-servico {
+  --btn-agendar-largura: 24rem;
+  --btn-agendar-espaco: 0.15rem;
+  max-width: 100%;
+}
+
 /* ---------- tablet e celular ---------- */
 @media (max-width: 1024px) {
-  .servicos-caixa {
-    height: auto;
-    min-height: 40rem;
-    gap: 2rem;
+  .servicos {
+    align-items: flex-start;
+    padding-top: 6rem;
   }
 
   .servicos-titulo {
-    font-size: clamp(3.5rem, 14vw, 6rem);
+    font-size: clamp(3rem, 12vw, 4.5rem);
   }
 
-  .carrossel {
-    padding: 0 0.5rem;
+  .palco {
+    height: 28rem;
   }
 
-  .seta {
-    width: 3rem;
-    height: 2.9rem;
-  }
-
-  /* no celular só o card central cabe */
+  /* no celular só o card central cabe: as setas e os pontos fazem a troca */
   .item.lateral {
     opacity: 0;
     pointer-events: none;
@@ -270,7 +297,8 @@ function classe(i) {
 
 @media (prefers-reduced-motion: reduce) {
   .item,
-  .seta {
+  .seta,
+  .ponto {
     transition: none;
   }
 }
