@@ -3,6 +3,8 @@ defineProps({
   titulo: { type: String, required: true },
   descricao: { type: String, required: true },
   imagem: { type: String, default: '' },
+  preco: { type: String, default: '' },
+  duracao: { type: String, default: '' },
 })
 </script>
 
@@ -12,16 +14,16 @@ defineProps({
       <img v-if="imagem" :src="imagem" :alt="titulo" />
     </div>
 
-    <div class="servico-direita">
+    <div class="servico-info">
       <div class="servico-textos">
         <h3 class="servico-titulo">{{ titulo }}</h3>
         <p class="servico-descricao">{{ descricao }}</p>
       </div>
 
-      <div class="servico-logo">
-        <!-- coloque aqui a logo -->
-        <!-- <img src="../assets/logo-mini.png" alt="" /> -->
-         <img src=  "../assets/Logotipo.png" alt="Logo">
+      <div v-if="preco || duracao" class="servico-meta">
+        <span v-if="preco" class="servico-preco">{{ preco }}</span>
+        <span v-if="preco && duracao" class="servico-separador">·</span>
+        <span v-if="duracao" class="servico-duracao">{{ duracao }}</span>
       </div>
     </div>
   </article>
@@ -30,24 +32,25 @@ defineProps({
 <style scoped>
 .servico-card {
   display: flex;
-  width: 21.375rem;
-  padding: 0.75rem;
-  align-items: flex-start;
-  gap: 0.96rem;
+  width: min(38rem, calc(100vw - 2 * var(--margem-lateral)));
+  padding: 1rem;
+  align-items: stretch;
+  gap: 1.5rem;
   box-sizing: border-box;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(0, 0, 0, 0.7);
-  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 16px 32px -12px rgba(0, 0, 0, 0.6);
 }
 
 .servico-imagem {
-  width: 8.548rem;
-  height: 10.376rem;
+  width: 15rem;
+  height: 19rem;
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: 0.163rem;
+  border-radius: 0.25rem;
   border: 1px solid #c6ae24;
-  background: lightgray;
+  background: #2a2a2a;
 }
 
 .servico-imagem img {
@@ -57,58 +60,93 @@ defineProps({
   object-fit: cover;
 }
 
-.servico-direita {
+.servico-info {
   display: flex;
   flex: 1;
   min-width: 0;
-  height: 10.376rem;
-  align-items: flex-end;
-  gap: 0.96rem;
+  padding: 0.5rem 0;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .servico-textos {
   display: flex;
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  padding: 0.65rem 0;
-  box-sizing: border-box;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  gap: 0.75rem;
 }
 
 .servico-titulo {
   margin: 0;
   color: #f57d30;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.982rem;
+  font-size: 3rem;
   font-weight: 400;
-  line-height: normal;
+  line-height: 1;
   text-transform: uppercase;
 }
 
 .servico-descricao {
   margin: 0;
-  color: rgba(255, 255, 255, 0.67);
+  color: rgba(255, 255, 255, 0.7);
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.115rem;
+  font-size: 1.375rem;
   font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.033rem;
+  line-height: 1.25;
+  letter-spacing: 0.04rem;
   text-transform: uppercase;
 }
 
-.servico-logo {
-  width: 3.655rem;
-  height: 3.438rem;
-  flex-shrink: 0;
+.servico-meta {
+  display: flex;
+  padding-top: 1rem;
+  align-items: baseline;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(212, 91, 14, 0.4);
 }
 
-.servico-logo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.servico-preco {
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.servico-separador {
+  color: #d55b0e;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.75rem;
+}
+
+.servico-duracao {
+  color: rgba(255, 255, 255, 0.67);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1024px) {
+  .servico-card {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .servico-imagem {
+    width: 100%;
+    height: 11rem;
+  }
+
+  .servico-titulo {
+    font-size: 2.25rem;
+  }
+
+  .servico-descricao {
+    font-size: 1.125rem;
+  }
+
+  .servico-preco {
+    font-size: 2rem;
+  }
 }
 </style>
