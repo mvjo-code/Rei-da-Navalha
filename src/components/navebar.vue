@@ -1,17 +1,73 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
+// "secao" = id da seção da página onde o link está.
+// Horários fica dentro da seção Ofertas, e Contato dentro da seção Sobre.
 const links = [
-  { texto: 'Início', href: '#inicio' },
-  { texto: 'Serviços', href: '#servicos' },
-  { texto: 'Ofertas', href: '#ofertas' },
-  { texto: 'Horários', href: '#horarios' },
-  { texto: 'Sobre', href: '#sobre' },
-  { texto: 'Contato', href: '#contato' },
+  { texto: 'Início', href: '#inicio', secao: 'inicio' },
+  { texto: 'Serviços', href: '#servicos', secao: 'servicos' },
+  { texto: 'Ofertas', href: '#ofertas', secao: 'ofertas' },
+  { texto: 'Horários', href: '#horarios', secao: 'ofertas' },
+  { texto: 'Sobre', href: '#sobre', secao: 'sobre' },
+  { texto: 'Contato', href: '#contato', secao: 'sobre' },
 ]
 
 const linkAtivo = ref('#inicio')
+
+let secaoAtual = 'inicio'   // seção que está no meio da tela agora
+let destino = null          // seção para onde um clique está rolando (null = nenhuma)
+let observador = null
+
+// clique em um link
+function aoClicar(link) {
+  linkAtivo.value = link.href
+  // só "espera chegar" se o link levar a outra seção
+  destino = link.secao !== secaoAtual ? link.secao : null
+}
+
+// se a pessoa rolar por conta própria, para de esperar o destino do clique
+function cancelarDestino() {
+  destino = null
+}
+
+// o observador chama esta função quando alguma seção entra ou sai da faixa do meio da tela
+function aoMudarSecao(entradas) {
+  for (const entrada of entradas) {
+    if (!entrada.isIntersecting) continue   // ignora as seções que saíram
+
+    secaoAtual = entrada.target.id
+
+    if (destino !== null) {
+      if (secaoAtual === destino) destino = null   // chegou: o link clicado continua ativo
+      continue                                     // passando por outra seção: não muda nada
+    }
+
+    // rolagem normal: ativa o primeiro link daquela seção
+    const link = links.find((l) => l.secao === secaoAtual)
+    linkAtivo.value = link.href
+  }
+}
+
+const eventos = ['wheel', 'touchstart', 'keydown']
+
+onMounted(() => {
+  const ids = [...new Set(links.map((l) => l.secao))]
+  const elementos = ids.map((id) => document.getElementById(id)).filter(Boolean)
+
+  observador = new IntersectionObserver(aoMudarSecao, {
+    rootMargin: '-45% 0px -45% 0px',   // olha só para uma faixa fina no meio da tela
+  })
+  elementos.forEach((el) => observador.observe(el))
+
+  eventos.forEach((e) => window.addEventListener(e, cancelarDestino, { passive: true }))
+})
+
+onBeforeUnmount(() => {
+  observador?.disconnect()
+  eventos.forEach((e) => window.removeEventListener(e, cancelarDestino))
+})
 </script>
+
 
 <template>
   <header class="navbar">
@@ -25,7 +81,7 @@ const linkAtivo = ref('#inicio')
         :key="link.href"
         :href="link.href"
         :class="['menu-link', { ativo: linkAtivo === link.href }]"
-        @click="linkAtivo = link.href"
+        @click="aoClicar(link)"
       >
         {{ link.texto }}
       </a>
