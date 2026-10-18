@@ -27,6 +27,7 @@ defineProps({
 
 <style scoped>
 .quadro {
+  scroll-margin-top: 8rem;
   display: flex;
   width: 46.25rem;
   max-width: 100%;

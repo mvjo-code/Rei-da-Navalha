@@ -28,7 +28,7 @@ const ofertas = [
 
     <div class="ofertas-conteudo">
       <div class="ofertas-linha">
-        <QuadroHorarios :horarios="horarios" />
+        <QuadroHorarios id="horarios" :horarios="horarios" />
 
         <div class="ofertas-lateral">
           <OfertaCard v-for="oferta in ofertas" :key="oferta.descricao" v-bind="oferta" />
