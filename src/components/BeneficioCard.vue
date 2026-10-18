@@ -162,4 +162,27 @@ defineProps({
     transform: none;
   }
 }
+
+@media (max-width: 1024px) {
+  .beneficio-card {
+    width: 100%;
+    height: auto;         /* a altura fixa de 11rem não comporta o texto em 2 linhas */
+  }
+}
+
+@media (max-width: 640px) {
+  .beneficio-topo {
+    align-self: center;   /* linhas e logo centralizadas, como no design */
+  }
+
+  .beneficio-linha {
+    width: 3.4rem;
+  }
+
+  .beneficio-titulo {
+    font-size: 1.5rem;
+    letter-spacing: 0.075rem;
+  }
+}
+
 </style>

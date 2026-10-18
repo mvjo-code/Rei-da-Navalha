@@ -36,3 +36,14 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 640px) {
+  html {
+    /* 1rem = 16px quando a tela tem 384px, o tamanho do frame do celular no Figma */
+    font-size: clamp(12px, 4.1667vw, 18px);
+  }
+
+  :root {
+    --margem-lateral: 1.6875rem;   /* 27px do design */
+  }
+} 

@@ -256,61 +256,74 @@ onBeforeUnmount(() => {
   color: #f3640b;
   text-shadow: 0 0 8px rgba(243, 100, 11, 0.6); /* brilho no texto */
 }
+
+/* ========== TABLET E CELULAR: navbar em duas linhas ========== */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+    column-gap: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background: rgba(12, 12, 12, 0.88);   /* o conteúdo passa por baixo ao rolar, então precisa de fundo */
+  }
+
+  .logo {
+    order: 1;
+  }
+
+  .logo img {
+    display: block;
+    height: 3.4rem;
+    width: auto;
+  }
+
+  .botao-agendar {
+    order: 2;
+    width: 9.5rem;
+    height: 3rem;
+    padding: 0;
+    gap: 0.75rem;
+    border-radius: 0.625rem;
+    border-width: 1px;
+  }
+
+  .botao-agendar img {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .botao-agendar span {
+    color: #fff;
+    font-size: 1.25rem;
+    letter-spacing: 0.04rem;
+  }
+
+  /* segunda linha: os links ocupam a largura toda */
+  .menu {
+    order: 3;
+    flex-basis: 100%;
+    width: 100%;
+    justify-content: center;
+    gap: 1.75rem;
+  }
+
+  .menu-link {
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+  }
+
+  .menu-link::after {
+    display: none;   /* o design só troca a cor do link ativo; apague esta regra para voltar o sublinhado */
+  }
+}
+
+@media (max-width: 640px) {
+  .menu {
+    justify-content: space-between;   /* os 6 links se espalham de ponta a ponta */
+    gap: 0;
+  }
+}
+
+
 </style>
-
-/*
-.botao-agendar {
-  display: flex;
-  width: 261.048px;
-  height: 66.431px;
-  padding: 29.858px 35.83px 29.005px 35.83px;
-  justify-content: center;
-  align-items: center;
-  gap: 8.531px;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  border-radius: 11.943px;
-  border: 0.853px solid #d45b0e;
-  background: rgba(217, 217, 217, 0);
-  text-decoration: none;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.botao-agendar:hover {
-  border-color: #f3640b;
-  background: rgba(243, 100, 11, 0.08); /* leve tom alaranjado no fundo */
-  transform: translateY(-3px);
-  box-shadow:
-    0 8px 20px rgba(212, 91, 14, 0.25), /* sombra projetada embaixo */
-    0 0 14px rgba(243, 100, 11, 0.35),  /* brilho em volta do botão */
-    inset 0 0 14px rgba(243, 100, 11, 0.12); /* brilho por dentro da borda */
-}
-
-.botao-agendar:active {
-  transform: translateY(0);
-  box-shadow: 0 0 8px rgba(243, 100, 11, 0.25);
-}
-
-.botao-agendar span {
-  color: #d45b0e;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 27.299px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 12.558px;
-  text-transform: uppercase;
-  transition:
-    color 0.3s ease,
-    text-shadow 0.3s ease;
-}
-
-.botao-agendar:hover span {
-  color: #f3640b;
-  text-shadow: 0 0 8px rgba(243, 100, 11, 0.6); /* brilho no texto */
-}
-*/

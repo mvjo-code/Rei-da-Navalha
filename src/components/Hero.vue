@@ -313,15 +313,39 @@ const beneficios = [
   }
 }
 
+
 /* ========== TABLET E CELULAR ========== */
 @media (max-width: 1024px) {
   .hero {
-    padding: 6rem var(--margem-lateral) 2.5rem;
-
-    height: auto;           /* libera a altura: o conteúdo empilhado não cabe em 1 tela */
+    --altura-video: max(100dvh, 55rem);
+    height: auto;                 /* a hero cresce com o conteúdo empilhado */
     min-height: 100dvh;
     overflow: visible;
     align-items: flex-start;
+    padding: 9.5rem var(--margem-lateral) 3rem;   /* espaço da navbar de duas linhas */
+  }
+
+  /* o vídeo cobre só a primeira tela, e não a página inteira */
+  .hero-video {
+    height: var(--altura-video);
+  }
+
+  .hero-overlay {                 /* se você usa o .hero-overlay, ele acompanha o vídeo */
+    bottom: auto;
+    height: var(--altura-video);
+  }
+
+  /* o vídeo some num degradê até o fundo escuro */
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--altura-video) - 10rem);
+    height: 10rem;
+    background: linear-gradient(180deg, transparent 0%, #1c1c1c 100%);
+    pointer-events: none;
+    z-index: 1;
   }
 
   .hero-conteudo {
@@ -330,7 +354,7 @@ const beneficios = [
 
   .hero-topo {
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .hero-esquerda {
@@ -365,7 +389,7 @@ const beneficios = [
 
   .btn-agendar,
   .btn-servicos {
-    flex: 1 1 14rem; /* lado a lado se couber, senão um embaixo do outro */
+    flex: 1 1 14rem;
     width: auto;
   }
 
@@ -379,4 +403,103 @@ const beneficios = [
     height: auto;
   }
 }
+
+/* ========== CELULAR (design próprio) ========== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 10rem;
+  }
+
+  .hero-conteudo {
+    align-items: stretch;
+    gap: 1.625rem;
+  }
+
+  .hero-topo {
+    align-items: stretch;
+    gap: 3rem;
+  }
+
+  .hero-esquerda {
+    align-items: flex-start;
+    gap: 2.75rem;
+  }
+
+  .hero-textos {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-subtitulo {
+    height: auto;
+    font-size: 1.125rem;
+  }
+
+  .hero-titulo {
+    align-items: flex-start;
+    margin: 0.5rem 0 0;
+    font-size: 6rem;
+  }
+
+  .titulo-linha-1,
+  .titulo-linha-2 {
+    line-height: 0.95;
+  }
+
+  /* os botões saem da "caixa" e ficam um embaixo do outro */
+  .hero-botoes {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+  }
+
+  .btn-agendar,
+  .btn-servicos {
+    flex: none;
+    width: 100%;
+    height: 3.4375rem;
+    border-radius: 0.625rem;
+  }
+
+  /* Agendar: o ícone deixa de ser um quadrado escuro e vai para dentro do botão laranja */
+  .btn-agendar {
+    justify-content: center;
+    align-items: center;
+    gap: 0.875rem;
+    border-width: 1px;
+    letter-spacing: 0.05rem;
+  }
+
+  .btn-agendar-icone {
+    width: auto;
+    border-right: 0;
+    background: none;
+    align-self: center;
+  }
+
+  .btn-agendar-icone img {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .btn-agendar-texto {
+    flex: 0 0 auto;
+    font-size: 1.5rem;
+  }
+
+  .btn-servicos {
+    padding: 0;
+    border-width: 1px;
+    font-size: 1.5rem;
+    letter-spacing: 0.06rem;
+  }
+
+  .beneficios {
+    gap: 1rem;
+  }
+}
+
 </style>

@@ -313,4 +313,96 @@ defineProps({
   }
 }
 
+@media (max-width: 640px) {
+  .promo {
+    width: 100%;
+    height: auto;
+    padding: 1.5rem 1.125rem 1.25rem;
+    gap: 1rem;
+    border-radius: 1rem;
+  }
+
+  .promo-topo {
+    gap: 0.75rem;
+  }
+
+  .promo-linha {
+    width: 3.4rem;
+  }
+
+  .promo-conteudo {
+    gap: 0.875rem;
+  }
+
+  /* o bloco da oferta vira uma grade de 3 colunas */
+  .promo-oferta {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0.375rem;
+  }
+
+  /* "Damos": linha de cima, ocupando as 3 colunas */
+  .promo-oferta > .promo-texto:first-child {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-size: 1.5rem;
+  }
+
+  /* "display: contents" tira essas caixas do caminho: o 20, o % e o OFF viram itens da grade */
+  .promo-desconto,
+  .promo-lateral {
+    display: contents;
+  }
+
+  .promo-valor,
+  .promo-simbolo {
+    grid-row: 2 / 4;
+    font-size: 5.5rem;
+    line-height: 0.85;
+  }
+
+  .promo-valor {
+    grid-column: 1;
+  }
+
+  .promo-simbolo {
+    grid-column: 2;
+  }
+
+  .promo-sufixo {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+    margin-left: 1rem;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .promo-oferta > .promo-texto:last-child {
+    grid-column: 3;
+    grid-row: 3;
+    align-self: start;
+    margin-left: 1rem;
+    text-align: left;
+    font-size: 1.375rem;
+    white-space: nowrap;
+  }
+
+  .promo-divisor {
+    width: 100%;
+  }
+
+  .promo-botao {
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    background: #c7550d;
+    font-size: 1.125rem;
+    letter-spacing: 0.05rem;
+  }
+}
+
 </style>
