@@ -405,4 +405,47 @@ defineProps({
   }
 }
 
+/* ---------- ajustes para tablets ---------- */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .promo {
+    width: 15.75rem;
+    height: auto;
+    padding: 1.125rem 1rem 1.25rem;
+    gap: 0.875rem;
+  }
+
+  .promo-linha {
+    width: 3.5rem;
+  }
+
+  .promo-texto {
+    font-size: 1.25rem;
+  }
+
+  .promo-valor {
+    font-size: 8.5rem;
+  }
+
+  .promo-simbolo {
+    font-size: 4.5rem;
+  }
+
+  .promo-sufixo {
+    font-size: 1.75rem;
+  }
+
+  .promo-divisor {
+    width: 100%;
+  }
+
+  .promo-botao {
+    width: 100%;
+    height: 2.75rem;
+    padding: 0;
+    background: #c7550d;
+    font-size: 1rem;
+    letter-spacing: 0.08rem;
+  }
+}
+
 </style>

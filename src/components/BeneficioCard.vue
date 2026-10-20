@@ -154,27 +154,51 @@ defineProps({
   text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .beneficio-card::before {
-    animation: none;
-  }
-  .beneficio-card:hover {
-    transform: none;
-  }
-}
-
 @media (max-width: 1024px) {
   .beneficio-card {
     width: 100%;
-    height: auto;         /* a altura fixa de 11rem não comporta o texto em 2 linhas */
+    height: auto;          /* a altura fixa de 11rem não comporta o texto */
+  }
+
+  .beneficio-topo {
+    align-self: center;    /* linhas e logo centralizadas, como nos designs */
   }
 }
 
-@media (max-width: 640px) {
-  .beneficio-topo {
-    align-self: center;   /* linhas e logo centralizadas, como no design */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .beneficio-card {
+    padding: 1rem;
+    gap: 0.75rem;
   }
 
+  .beneficio-linha {
+    width: 3rem;
+  }
+
+  .beneficio-titulo {
+    font-size: 1.25rem;
+    letter-spacing: 0.07rem;
+  }
+
+  .beneficio-texto {
+    font-size: 0.9375rem;
+  }
+}
+
+@keyframes feixe-frequente {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  50% {
+    transform: translateX(300%) skewX(-20deg);   /* atravessa em 2s */
+  }
+  100% {
+    transform: translateX(300%) skewX(-20deg);   /* pausa de 2s */
+  }
+}
+
+
+@media (max-width: 640px) {
   .beneficio-linha {
     width: 3.4rem;
   }
@@ -183,6 +207,21 @@ defineProps({
     font-size: 1.5rem;
     letter-spacing: 0.075rem;
   }
+
+    .beneficio-card::before {
+    animation-name: feixe-frequente;
+    animation-duration: 4s;
+  }
+
+  /* os cards estão empilhados: o feixe "desce" de um para o outro */
+  .beneficio-card:nth-child(2)::before {
+    animation-delay: 0.6s;
+  }
+
+  .beneficio-card:nth-child(3)::before {
+    animation-delay: 1.2s;
+  }
+
 }
 
 </style>

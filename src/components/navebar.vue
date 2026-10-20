@@ -258,6 +258,7 @@ onBeforeUnmount(() => {
 }
 
 /* ========== TABLET E CELULAR: navbar em duas linhas ========== */
+/* ========== TABLET E CELULAR: navbar em duas linhas ========== */
 @media (max-width: 1024px) {
   .navbar {
     flex-wrap: wrap;
@@ -265,7 +266,7 @@ onBeforeUnmount(() => {
     column-gap: 1rem;
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    background: rgba(12, 12, 12, 0.88);   /* o conteúdo passa por baixo ao rolar, então precisa de fundo */
+    background: rgba(12, 12, 12, 0.88);
   }
 
   .logo {
@@ -280,12 +281,47 @@ onBeforeUnmount(() => {
 
   .botao-agendar {
     order: 2;
-    width: 9.5rem;
-    height: 3rem;
+    width: 11.5rem;
+    height: 3.4rem;
     padding: 0;
     gap: 0.75rem;
     border-radius: 0.625rem;
     border-width: 1px;
+  }
+
+  .botao-agendar img {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+
+  .botao-agendar span {
+    color: #fff;
+    font-size: 1.375rem;
+    letter-spacing: 0.04rem;
+  }
+
+  .menu {
+    order: 3;
+    flex-basis: 100%;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .menu-link {
+    font-size: 1.125rem;
+    letter-spacing: 0.05rem;
+  }
+
+  .menu-link::after {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .botao-agendar {
+    width: 9.5rem;
+    height: 3rem;
   }
 
   .botao-agendar img {
@@ -294,36 +330,12 @@ onBeforeUnmount(() => {
   }
 
   .botao-agendar span {
-    color: #fff;
     font-size: 1.25rem;
-    letter-spacing: 0.04rem;
-  }
-
-  /* segunda linha: os links ocupam a largura toda */
-  .menu {
-    order: 3;
-    flex-basis: 100%;
-    width: 100%;
-    justify-content: center;
-    gap: 1.75rem;
   }
 
   .menu-link {
     font-size: 1rem;
-    letter-spacing: 0.05rem;
-  }
-
-  .menu-link::after {
-    display: none;   /* o design só troca a cor do link ativo; apague esta regra para voltar o sublinhado */
   }
 }
-
-@media (max-width: 640px) {
-  .menu {
-    justify-content: space-between;   /* os 6 links se espalham de ponta a ponta */
-    gap: 0;
-  }
-}
-
 
 </style>

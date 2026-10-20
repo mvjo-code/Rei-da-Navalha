@@ -315,27 +315,27 @@ const beneficios = [
 
 
 /* ========== TABLET E CELULAR ========== */
+/* ========== TABLET E CELULAR (parte comum) ========== */
 @media (max-width: 1024px) {
   .hero {
     --altura-video: max(100dvh, 55rem);
-    height: auto;                 /* a hero cresce com o conteúdo empilhado */
+    height: auto;
     min-height: 100dvh;
     overflow: visible;
     align-items: flex-start;
-    padding: 9.5rem var(--margem-lateral) 3rem;   /* espaço da navbar de duas linhas */
+    padding: 10.5rem var(--margem-lateral) 3rem;   /* espaço da navbar de duas linhas */
   }
 
-  /* o vídeo cobre só a primeira tela, e não a página inteira */
+  /* o vídeo cobre só a primeira tela e some num degradê */
   .hero-video {
     height: var(--altura-video);
   }
 
-  .hero-overlay {                 /* se você usa o .hero-overlay, ele acompanha o vídeo */
+  .hero-overlay {
     bottom: auto;
     height: var(--altura-video);
   }
 
-  /* o vídeo some num degradê até o fundo escuro */
   .hero::after {
     content: '';
     position: absolute;
@@ -349,80 +349,16 @@ const beneficios = [
   }
 
   .hero-conteudo {
-    align-items: center;
+    align-items: stretch;
+    gap: 1.75rem;
   }
 
   .hero-topo {
-    flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
 
   .hero-esquerda {
-    width: 100%;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .hero-textos {
-    align-items: center;
-    text-align: center;
-  }
-
-  .hero-titulo {
-    align-items: center;
-    font-size: clamp(5rem, 22vw, 9rem);
-  }
-
-  .titulo-linha-1,
-  .titulo-linha-2 {
-    height: auto;
-    line-height: 0.9;
-  }
-
-  .hero-botoes {
-    width: 100%;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .btn-agendar,
-  .btn-servicos {
-    flex: 1 1 14rem;
-    width: auto;
-  }
-
-  .beneficios {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .beneficio {
-    width: 100%;
-    height: auto;
-  }
-}
-
-/* ========== CELULAR (design próprio) ========== */
-@media (max-width: 640px) {
-  .hero {
-    padding-top: 10rem;
-  }
-
-  .hero-conteudo {
-    align-items: stretch;
-    gap: 1.625rem;
-  }
-
-  .hero-topo {
-    align-items: stretch;
-    gap: 3rem;
-  }
-
-  .hero-esquerda {
-    align-items: flex-start;
-    gap: 2.75rem;
+    gap: 1.5rem;
   }
 
   .hero-textos {
@@ -437,39 +373,31 @@ const beneficios = [
 
   .hero-titulo {
     align-items: flex-start;
-    margin: 0.5rem 0 0;
-    font-size: 6rem;
+    margin: 0.25rem 0 0;
   }
 
   .titulo-linha-1,
   .titulo-linha-2 {
+    height: auto;
     line-height: 0.95;
   }
 
-  /* os botões saem da "caixa" e ficam um embaixo do outro */
+  /* os botões saem da "caixa" escura */
   .hero-botoes {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 1.5rem;
+    width: 100%;
+    height: auto;
     padding: 0;
     background: none;
     border-radius: 0;
   }
 
-  .btn-agendar,
-  .btn-servicos {
-    flex: none;
-    width: 100%;
-    height: 3.4375rem;
-    border-radius: 0.625rem;
-  }
-
-  /* Agendar: o ícone deixa de ser um quadrado escuro e vai para dentro do botão laranja */
+  /* Agendar: o ícone vai para dentro do botão laranja */
   .btn-agendar {
     justify-content: center;
     align-items: center;
-    gap: 0.875rem;
+    gap: 0.75rem;
     border-width: 1px;
+    border-radius: 0.625rem;
     letter-spacing: 0.05rem;
   }
 
@@ -493,12 +421,127 @@ const beneficios = [
   .btn-servicos {
     padding: 0;
     border-width: 1px;
+    border-radius: 0.625rem;
     font-size: 1.5rem;
     letter-spacing: 0.06rem;
   }
 
   .beneficios {
     gap: 1rem;
+  }
+}
+
+/* ========== TABLET (design próprio) ========== */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* texto e botões à esquerda, promoção à direita, centralizados na vertical */
+  .hero-topo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-esquerda {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+
+  /* painel escuro atrás dos textos */
+  .hero-textos {
+    padding: 0.75rem 1rem 0.5rem;
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-titulo {
+    font-size: 7.6rem;
+  }
+
+  /* botões um embaixo do outro */
+  .hero-botoes {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .btn-agendar,
+  .btn-servicos {
+    flex: none;
+    width: 100%;
+    height: 3.4rem;
+  }
+
+  /* os 3 benefícios em linha */
+  .beneficios {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .beneficio {
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
+    height: auto;
+  }
+}
+
+/* ========== CELULAR (design próprio) ========== */
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 10rem;
+  }
+
+  .hero-topo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3rem;
+  }
+
+  .hero-esquerda {
+    width: 100%;
+    gap: 2.75rem;
+  }
+
+  .hero-titulo {
+    font-size: 6rem;
+  }
+
+  /* os dois botões lado a lado */
+  .hero-botoes {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .btn-agendar,
+  .btn-servicos {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    height: 3.4375rem;
+  }
+
+  .btn-agendar {
+    gap: 0.5rem;
+    letter-spacing: 0.03rem;
+  }
+
+  .btn-agendar-texto {
+    font-size: 1.25rem;
+  }
+
+  .btn-servicos {
+    font-size: 1.25rem;
+    letter-spacing: 0.04rem;
+  }
+
+  /* benefícios empilhados */
+  .beneficios {
+    flex-direction: column;
+  }
+
+  .beneficio {
+    flex: none;           /* o que faltava: sem isso a altura vira 0 */
+    width: 100%;
+    height: auto;
   }
 }
 
