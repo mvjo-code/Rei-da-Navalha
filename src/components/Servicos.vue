@@ -300,4 +300,49 @@ function classe(i) {
     transition: none;
   }
 }
+
+@media (max-width: 640px) {
+  .servicos {
+    align-items: center;                       /* centraliza o conjunto no espaço abaixo da navbar */
+    padding: 7rem var(--margem-lateral) 1rem;  /* 7rem = altura da navbar de duas linhas */
+  }
+
+  .servicos-conteudo {
+    gap: 1rem;
+  }
+
+  .servicos-cabecalho {
+    gap: 0.4rem;
+  }
+
+  .servicos-titulo {
+    font-size: 2.25rem;
+  }
+
+  .servicos-traco {
+    width: 3rem;
+    height: 2px;
+  }
+
+  .palco {
+    height: 19rem;
+  }
+
+  .controles {
+    gap: 1rem;
+  }
+
+  .seta {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  /* botão: largura total, mais baixo, com fonte que cabe "Agendar pigmentação" */
+  .botao-servico {
+    --btn-agendar-largura: 100%;
+    --btn-agendar-altura: 3rem;
+    --btn-agendar-icone: 3rem;
+    --btn-agendar-fonte: 1.25rem;
+    --btn-agendar-espaco: 0.05rem;
+  }}
 </style>

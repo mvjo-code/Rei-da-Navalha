@@ -20,7 +20,7 @@ defineProps({
   overflow: hidden;
   display: flex;
   width: var(--btn-agendar-largura, 16.3125rem);
-  height: 4.25rem;
+  height: var(--btn-agendar-altura, 4.25rem);
   flex-shrink: 0;
   box-sizing: border-box;
   border-radius: 0.8125rem;
@@ -41,7 +41,7 @@ defineProps({
 
 .btn-agendar-icone {
   display: flex;
-  width: 4rem;
+  width: var(--btn-agendar-icone, 4rem);
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
@@ -58,7 +58,7 @@ defineProps({
   align-self: stretch;
   color: #fff;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.75rem;
+  font-size: var(--btn-agendar-fonte, 1.75rem);
   font-weight: 400;
   line-height: 100%;
   text-transform: uppercase;
@@ -84,7 +84,12 @@ defineProps({
 }
 
 @keyframes feixe {
-  from { left: -75%; }
-  to { left: 125%; }
+  from {
+    left: -75%;
+  }
+
+  to {
+    left: 125%;
+  }
 }
 </style>

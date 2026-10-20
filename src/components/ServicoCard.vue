@@ -149,4 +149,45 @@ defineProps({
     font-size: 2rem;
   }
 }
+
+@media (max-width: 640px) {
+  .servico-card {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .servico-imagem {
+    height: 8rem;
+  }
+
+  .servico-info {
+    padding: 0.25rem 0 0;
+    gap: 0.5rem;
+  }
+
+  .servico-textos {
+    gap: 0.5rem;
+  }
+
+  .servico-titulo {
+    font-size: 1.875rem;
+  }
+
+  .servico-descricao {
+    font-size: 1rem;
+  }
+
+  .servico-meta {
+    padding-top: 0.5rem;
+  }
+
+  .servico-preco {
+    font-size: 1.75rem;
+  }
+
+  .servico-separador,
+  .servico-duracao {
+    font-size: 1.25rem;
+  }
+}
 </style>
